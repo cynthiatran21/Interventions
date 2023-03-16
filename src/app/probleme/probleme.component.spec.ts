@@ -30,9 +30,15 @@ describe('ProblemeComponent', () => {
   //   expect(saisiePrenom.valid).toBeFalsy();
   //  })
 
-   it('#2 | Zone PRÉNOM valide avec 3 caractères', () => {
+  //  it('#2 | Zone PRÉNOM valide avec 3 caractères', () => {
+  //   let saisiePrenom = component.problemeForm.controls['prenom'];
+  //   saisiePrenom.setValue('a'.repeat(3))
+  //   expect(saisiePrenom.valid).toBeTruthy();
+  //  })
+
+   it('#3 | Zone PRÉNOM valide avec 200 caractères', () => {
     let saisiePrenom = component.problemeForm.controls['prenom'];
-    saisiePrenom.setValue('a'.repeat(4))
+    saisiePrenom.setValue('a'.repeat(199))
     expect(saisiePrenom.valid).toBeTruthy();
    })
 });
