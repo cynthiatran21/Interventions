@@ -38,7 +38,7 @@ describe('ProblemeComponent', () => {
 
    it('#3 | Zone PRÉNOM valide avec 200 caractères', () => {
     let saisiePrenom = component.problemeForm.controls['prenom'];
-    saisiePrenom.setValue('a'.repeat(199))
+    saisiePrenom.setValue('a'.repeat(200))
     expect(saisiePrenom.valid).toBeTruthy();
    })
 });
