@@ -32,7 +32,7 @@ describe('ProblemeComponent', () => {
 
    it('#2 | Zone PRÉNOM valide avec 3 caractères', () => {
     let saisiePrenom = component.problemeForm.controls['prenom'];
-    saisiePrenom.setValue('a'.repeat(2))
+    saisiePrenom.setValue('a'.repeat(3))
     expect(saisiePrenom.valid).toBeTruthy();
    })
 });
