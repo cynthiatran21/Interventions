@@ -47,12 +47,12 @@ describe('ProblemeComponent', () => {
   it('#5 | Zone PRÉNOM invalide avec 10 espaces', () => {
     let saisiePrenom = component.problemeForm.controls['prenom'];
     saisiePrenom.setValue(' '.repeat(10));
-    expect(saisiePrenom.valid).toBeTruthy();
+    expect(saisiePrenom.valid).toBeFalse();
   });
 
-  it('#6 | Zone PRÉNOM valide avec 2 espaces et 1 caractère', () => {
+  it('#6 | Zone PRÉNOM invalide avec 2 espaces et 1 caractère', () => {
     let saisiePrenom = component.problemeForm.controls['prenom'];
     saisiePrenom.setValue("  a")
-    expect(saisiePrenom.valid).toBeTruthy();
+    expect(saisiePrenom.valid).toBeFalse();
   });
 });
