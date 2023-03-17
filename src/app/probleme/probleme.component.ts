@@ -16,4 +16,7 @@ export class ProblemeComponent implements OnInit {
       prenom: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
+
+  save(): void {
+  }
 }
