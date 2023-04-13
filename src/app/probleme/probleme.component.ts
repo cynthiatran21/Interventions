@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VerifierCaracteresValidator } from '../shared/validerzones/longueur-minimum.component';
 import { TypesproblemeService } from './typesprobleme.service';
 import { ITypeProbleme } from './typesprobleme';
+import { EmailMatcherComponent } from '../shared/email-matcher/email-matcher.component';
 
 @Component({
   selector: 'Inter-probleme',
@@ -36,10 +37,14 @@ export class ProblemeComponent implements OnInit {
       telephone: [{ value: '', disabled: true }],
     });
 
+
+
     this.typesprobleme.obtenirTypesProbleme().subscribe(
       (prob) => (this.typesProbleme = prob),
       (error) => (this.errorMessage = <any>error)
     );
+
+    this.problemeForm.get('notification').valueChanges.subscribe(value => this.gestionNotification(value));
   }
 
   gestionNotification(typeNotification: string): void {
@@ -53,6 +58,8 @@ export class ProblemeComponent implements OnInit {
       'courrielGroup.courrielConfirmation'
     );
     courrielConfirmationControl.disable();
+
+    const courrielGroup = this.problemeForm.get("courrielGroup");
 
     courrielControl.clearValidators();
     courrielControl.reset();
@@ -74,12 +81,13 @@ export class ProblemeComponent implements OnInit {
       if (typeNotification === 'ParCourriel') {
         courrielControl.enable();
         courrielConfirmationControl.enable();
-        courrielControl.setValidators([Validators.required]);
-        courrielConfirmationControl.setValidators([Validators.required]);
+        courrielControl.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+        courrielConfirmationControl.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);
+        courrielGroup.setValidators([Validators.compose([EmailMatcherComponent.courrielDifferents()])]);
       } else {
         if (typeNotification === 'ParTelephone') {
           telephoneControl.enable();
-          telephoneControl.setValidators([Validators.required]);
+          telephoneControl.setValidators([Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(10), Validators.maxLength(10)]);
         }
       }
     }
@@ -87,6 +95,7 @@ export class ProblemeComponent implements OnInit {
     courrielControl.updateValueAndValidity();
     courrielConfirmationControl.updateValueAndValidity();
     telephoneControl.updateValueAndValidity();
+    courrielGroup.updateValueAndValidity();
   }
 
   save(): void {}
