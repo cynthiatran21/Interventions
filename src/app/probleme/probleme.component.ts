@@ -35,6 +35,10 @@ export class ProblemeComponent implements OnInit {
         courrielConfirmation: [{ value: '', disabled: true }],
       }),
       telephone: [{ value: '', disabled: true }],
+
+      descriptionProbleme:['', [Validators.required, Validators.minLength(5)]],
+      noUnite:'',
+      dateProbleme: {value:Date(), disabled:true}
     });
 
 
@@ -88,6 +92,15 @@ export class ProblemeComponent implements OnInit {
         if (typeNotification === 'ParTelephone') {
           telephoneControl.enable();
           telephoneControl.setValidators([Validators.required, Validators.pattern('[0-9]+'), Validators.minLength(10), Validators.maxLength(10)]);
+        } else {
+          if(typeNotification === "inconnu") {
+            courrielControl.setValidators([Validators.required]);
+            courrielControl.disable();
+            courrielConfirmationControl.setValidators([Validators.required]);
+            courrielConfirmationControl.disable();
+            telephoneControl.setValidators([Validators.required]);
+            telephoneControl.disable();
+          }
         }
       }
     }
